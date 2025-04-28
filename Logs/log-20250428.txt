@@ -1,0 +1,152 @@
+2025-04-28 02:42:43.777 +00:00 [WRN] Overriding HTTP_PORTS '8080' and HTTPS_PORTS ''. Binding to values defined by URLS instead 'http://0.0.0.0:80'.
+2025-04-28 02:42:52.359 +00:00 [WRN] Failed to determine the https port for redirect.
+2025-04-28 02:42:52.374 +00:00 [INF] HTTP GET /weatherforecast responded 200 in 10.3326 ms
+2025-04-28 02:42:58.756 +00:00 [INF] HTTP GET /weatherforecast responded 200 in 0.5360 ms
+2025-04-28 02:43:12.469 +00:00 [INF] HTTP GET /weatherforecast responded 200 in 0.6878 ms
+2025-04-28 02:43:23.382 +00:00 [INF] HTTP GET /weatherforecast responded 200 in 0.1513 ms
+2025-04-28 02:43:29.225 +00:00 [INF] HTTP GET /weatherforecast responded 200 in 0.1601 ms
+2025-04-28 02:43:32.978 +00:00 [INF] HTTP GET /weatherforecast responded 200 in 0.1259 ms
+2025-04-28 02:43:35.916 +00:00 [INF] HTTP GET /weatherforecast responded 200 in 0.1761 ms
+2025-04-28 02:45:15.126 +00:00 [INF] HTTP GET /weatherforec responded 404 in 0.2833 ms
+2025-04-28 02:45:33.029 +00:00 [INF] HTTP GET /weatherforec responded 404 in 0.1885 ms
+2025-04-28 02:48:50.757 +00:00 [WRN] Overriding HTTP_PORTS '8080' and HTTPS_PORTS ''. Binding to values defined by URLS instead 'http://0.0.0.0:80'.
+2025-04-28 02:48:52.047 +00:00 [WRN] Failed to determine the https port for redirect.
+2025-04-28 02:48:52.063 +00:00 [INF] HTTP GET /weatherforecast responded 200 in 10.4287 ms
+2025-04-28 02:48:57.409 +00:00 [INF] HTTP GET /weatherforeca responded 404 in 0.1986 ms
+2025-04-28 03:13:36.221 +00:00 [WRN] Overriding HTTP_PORTS '8080' and HTTPS_PORTS ''. Binding to values defined by URLS instead 'http://0.0.0.0:80'.
+2025-04-28 03:13:39.967 +00:00 [WRN] Failed to determine the https port for redirect.
+2025-04-28 03:13:39.973 +00:00 [INF] HTTP GET /weatherforeca responded 404 in 0.4396 ms
+2025-04-28 03:18:33.833 +00:00 [WRN] Overriding HTTP_PORTS '8080' and HTTPS_PORTS ''. Binding to values defined by URLS instead 'http://0.0.0.0:80'.
+2025-04-28 03:18:50.283 +00:00 [WRN] Failed to determine the https port for redirect.
+2025-04-28 03:18:50.298 +00:00 [INF] HTTP GET /weatherforecast responded 200 in 9.9293 ms
+2025-04-28 03:19:10.457 +00:00 [INF] HTTP GET /weatherforecast responded 200 in 0.1873 ms
+2025-04-28 03:19:20.538 +00:00 [INF] HTTP GET /weatherforecast responded 200 in 0.5471 ms
+2025-04-28 03:20:46.995 +00:00 [WRN] Overriding HTTP_PORTS '8080' and HTTPS_PORTS ''. Binding to values defined by URLS instead 'http://0.0.0.0:80'.
+2025-04-28 03:20:50.746 +00:00 [WRN] Failed to determine the https port for redirect.
+2025-04-28 03:20:50.753 +00:00 [ERR] HTTP GET /weatherforecast responded 500 in 2.7305 ms
+System.Exception: 測試用故意拋出的錯誤！
+   at Program.<>c.<<Main>$>b__0_1(HttpContext context) in /NET8_container/SerilogSample/Program.cs:line 81
+   at lambda_method2(Closure, Object, HttpContext)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+2025-04-28 03:20:50.833 +00:00 [ERR] An unhandled exception has occurred while executing the request.
+System.Exception: 測試用故意拋出的錯誤！
+   at Program.<>c.<<Main>$>b__0_1(HttpContext context) in /NET8_container/SerilogSample/Program.cs:line 81
+   at lambda_method2(Closure, Object, HttpContext)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2025-04-28 03:23:38.147 +00:00 [ERR] HTTP GET /weatherforecast responded 500 in 0.1848 ms
+System.Exception: 測試用故意拋出的錯誤！
+   at Program.<>c.<<Main>$>b__0_1(HttpContext context) in /NET8_container/SerilogSample/Program.cs:line 81
+   at lambda_method2(Closure, Object, HttpContext)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+2025-04-28 03:23:38.151 +00:00 [ERR] An unhandled exception has occurred while executing the request.
+System.Exception: 測試用故意拋出的錯誤！
+   at Program.<>c.<<Main>$>b__0_1(HttpContext context) in /NET8_container/SerilogSample/Program.cs:line 81
+   at lambda_method2(Closure, Object, HttpContext)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2025-04-28 03:28:22.122 +00:00 [INF] HTTP GET /weatherforecast responded 200 in 9.5047 ms
+2025-04-28 03:28:26.469 +00:00 [INF] HTTP GET /weatherforecast responded 200 in 0.6794 ms
+2025-04-28 03:35:12.078 +00:00 [WRN] Overriding HTTP_PORTS '8080' and HTTPS_PORTS ''. Binding to values defined by URLS instead 'http://0.0.0.0:80'.
+2025-04-28 03:35:14.617 +00:00 [WRN] Failed to determine the https port for redirect.
+2025-04-28 03:35:14.632 +00:00 [INF] HTTP GET /weatherforecast responded 200 in 10.7053 ms
+2025-04-28 03:35:20.779 +00:00 [ERR] HTTP GET /weatherforecast responded 500 in 2.4712 ms
+System.Exception: 測試用故意拋出的錯誤！
+   at Program.<>c.<<Main>$>b__0_1(HttpContext context) in /NET8_container/SerilogSample/Program.cs:line 81
+   at lambda_method2(Closure, Object, HttpContext)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+2025-04-28 03:35:20.838 +00:00 [ERR] An unhandled exception has occurred while executing the request.
+System.Exception: 測試用故意拋出的錯誤！
+   at Program.<>c.<<Main>$>b__0_1(HttpContext context) in /NET8_container/SerilogSample/Program.cs:line 81
+   at lambda_method2(Closure, Object, HttpContext)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2025-04-28 03:35:34.325 +00:00 [WRN] Overriding HTTP_PORTS '8080' and HTTPS_PORTS ''. Binding to values defined by URLS instead 'http://0.0.0.0:80'.
+2025-04-28 03:35:37.333 +00:00 [WRN] Failed to determine the https port for redirect.
+2025-04-28 03:35:37.341 +00:00 [ERR] HTTP GET /weatherforecast responded 500 in 2.6730 ms
+System.Exception: 測試用故意拋出的錯誤！
+   at Program.<>c.<<Main>$>b__0_2(HttpContext context) in /NET8_container/SerilogSample/Program.cs:line 98
+   at lambda_method2(Closure, Object, HttpContext)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+2025-04-28 03:35:37.415 +00:00 [ERR] An unhandled exception has occurred while executing the request.
+System.Exception: 測試用故意拋出的錯誤！
+   at Program.<>c.<<Main>$>b__0_2(HttpContext context) in /NET8_container/SerilogSample/Program.cs:line 98
+   at lambda_method2(Closure, Object, HttpContext)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2025-04-28 03:37:59.314 +00:00 [ERR] HTTP GET /weatherforecast responded 500 in 0.1801 ms
+System.Exception: 測試用故意拋出的錯誤！
+   at Program.<>c.<<Main>$>b__0_2(HttpContext context) in /NET8_container/SerilogSample/Program.cs:line 98
+   at lambda_method2(Closure, Object, HttpContext)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+2025-04-28 03:37:59.318 +00:00 [ERR] An unhandled exception has occurred while executing the request.
+System.Exception: 測試用故意拋出的錯誤！
+   at Program.<>c.<<Main>$>b__0_2(HttpContext context) in /NET8_container/SerilogSample/Program.cs:line 98
+   at lambda_method2(Closure, Object, HttpContext)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2025-04-28 03:38:15.552 +00:00 [WRN] Overriding HTTP_PORTS '8080' and HTTPS_PORTS ''. Binding to values defined by URLS instead 'http://0.0.0.0:80'.
+2025-04-28 03:38:23.334 +00:00 [WRN] Failed to determine the https port for redirect.
+2025-04-28 03:38:23.342 +00:00 [ERR] HTTP GET /weatherforecast responded 500 in 2.9922 ms
+System.Exception: 測試用故意拋出的錯誤！
+   at Program.<>c.<<Main>$>b__0_2(HttpContext context) in /NET8_container/SerilogSample/Program.cs:line 98
+   at lambda_method2(Closure, Object, HttpContext)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+2025-04-28 03:38:23.400 +00:00 [ERR] An unhandled exception has occurred while executing the request.
+System.Exception: 測試用故意拋出的錯誤！
+   at Program.<>c.<<Main>$>b__0_2(HttpContext context) in /NET8_container/SerilogSample/Program.cs:line 98
+   at lambda_method2(Closure, Object, HttpContext)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2025-04-28 03:38:55.792 +00:00 [INF] HTTP GET /weatherforecast responded 200 in 10.4200 ms
+2025-04-28 03:39:01.533 +00:00 [INF] HTTP GET /weatherforecast responded 200 in 0.2538 ms
+2025-04-28 03:39:04.888 +00:00 [INF] HTTP GET /weatherforecast responded 200 in 0.1328 ms
+2025-04-28 03:39:52.934 +00:00 [WRN] Overriding HTTP_PORTS '8080' and HTTPS_PORTS ''. Binding to values defined by URLS instead 'http://0.0.0.0:80'.
+2025-04-28 03:39:56.946 +00:00 [WRN] Failed to determine the https port for redirect.
+2025-04-28 03:39:56.963 +00:00 [INF] HTTP GET /weatherforecast responded 200 in 11.0482 ms
+2025-04-28 03:40:02.161 +00:00 [INF] HTTP GET /weatherforecast responded 200 in 0.2424 ms
+2025-04-28 03:40:07.535 +00:00 [INF] HTTP GET /weatherforecast responded 200 in 0.2295 ms
+2025-04-28 03:43:10.972 [WRN]    (Microsoft.AspNetCore.Hosting.Diagnostics) Overriding HTTP_PORTS '8080' and HTTPS_PORTS ''. Binding to values defined by URLS instead 'http://0.0.0.0:80'.
+2025-04-28 03:43:13.880 [WRN]    (Microsoft.AspNetCore.HttpsPolicy.HttpsRedirectionMiddleware) Failed to determine the https port for redirect.
+2025-04-28 03:43:13.897 [INF] localhost 172.17.0.1 http (Serilog.AspNetCore.RequestLoggingMiddleware) HTTP GET /weatherforecast responded 200 in 11.1476 ms
+2025-04-28 03:43:29.361 [ERR] localhost 172.17.0.1 http (Serilog.AspNetCore.RequestLoggingMiddleware) HTTP GET /weatherforecast responded 500 in 1.6957 ms
+System.Exception: 測試用故意拋出的錯誤！
+   at Program.<>c.<<Main>$>b__0_2(HttpContext context) in /NET8_container/SerilogSample/Program.cs:line 100
+   at lambda_method2(Closure, Object, HttpContext)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+2025-04-28 03:43:29.385 [ERR]    (Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware) An unhandled exception has occurred while executing the request.
+System.Exception: 測試用故意拋出的錯誤！
+   at Program.<>c.<<Main>$>b__0_2(HttpContext context) in /NET8_container/SerilogSample/Program.cs:line 100
+   at lambda_method2(Closure, Object, HttpContext)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2025-04-28 03:43:55.243 [WRN]    (Microsoft.AspNetCore.Hosting.Diagnostics) Overriding HTTP_PORTS '8080' and HTTPS_PORTS ''. Binding to values defined by URLS instead 'http://0.0.0.0:80'.
+2025-04-28 03:44:00.824 [WRN]    (Microsoft.AspNetCore.HttpsPolicy.HttpsRedirectionMiddleware) Failed to determine the https port for redirect.
+2025-04-28 03:44:00.831 [ERR] localhost 172.17.0.1 http (Serilog.AspNetCore.RequestLoggingMiddleware) HTTP GET /weatherforecast responded 500 in 2.6990 ms
+2025-04-28 03:44:00.922 [ERR]    (Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware) An unhandled exception has occurred while executing the request.
+2025-04-28 03:44:32.403 [WRN]    (Microsoft.AspNetCore.Hosting.Diagnostics) Overriding HTTP_PORTS '8080' and HTTPS_PORTS ''. Binding to values defined by URLS instead 'http://0.0.0.0:80'.
+2025-04-28 03:44:51.335 [WRN]    (Microsoft.AspNetCore.HttpsPolicy.HttpsRedirectionMiddleware) Failed to determine the https port for redirect.
+2025-04-28 03:44:51.342 [ERR] localhost 172.17.0.1 http (Serilog.AspNetCore.RequestLoggingMiddleware) HTTP GET /weatherforecast responded 500 in 2.7517 ms
+2025-04-28 03:44:51.424 [ERR]    (Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware) An unhandled exception has occurred while executing the request.
+2025-04-28 03:45:06.730 [ERR] localhost 172.17.0.1 http (Serilog.AspNetCore.RequestLoggingMiddleware) HTTP GET /weatherforecast responded 500 in 0.1581 ms
+2025-04-28 03:45:06.733 [ERR]    (Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware) An unhandled exception has occurred while executing the request.
+2025-04-28 03:53:56.689 [ERR] localhost 172.17.0.1 http (Serilog.AspNetCore.RequestLoggingMiddleware) HTTP GET /weatherforecast responded 500 in 0.1179 ms
+2025-04-28 03:53:56.692 [ERR]    (Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware) An unhandled exception has occurred while executing the request.
+2025-04-28 03:53:59.868 [INF] localhost 172.17.0.1 http (Serilog.AspNetCore.RequestLoggingMiddleware) HTTP GET /weatherforecast responded 200 in 10.7484 ms
+2025-04-28 04:01:18.917 [WRN] localhost 172.17.0.1 http (Serilog.AspNetCore.RequestLoggingMiddleware) HTTP GET /favicon.ico responded 404 in 0.8056 ms
+2025-04-28 04:57:14.899 [INF] localhost 172.17.0.1 http (Serilog.AspNetCore.RequestLoggingMiddleware) HTTP GET /weatherforecast responded 200 in 0.3740 ms
+2025-04-28 04:58:47.554 [INF] localhost 172.17.0.1 http (Serilog.AspNetCore.RequestLoggingMiddleware) HTTP GET /weatherforecast responded 200 in 0.1902 ms

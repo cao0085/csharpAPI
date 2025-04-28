@@ -4,7 +4,7 @@ using RestApiPractice.LogicLayer.Interfaces;
 
 using Serilog;
 using Serilog.Events;
-
+var port = Environment.GetEnvironmentVariable("PORT") ?? "80";
 var builder = WebApplication.CreateBuilder(args);
 
 Log.Logger = new LoggerConfiguration()
@@ -29,6 +29,12 @@ Log.Logger = new LoggerConfiguration()
     )
     .CreateLogger();
 builder.Host.UseSerilog();
+
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.ListenAnyIP(int.Parse(port));
+});
+
 
 var configuration = builder.Configuration;
 // 註冊 DI (邏輯層、資料層)

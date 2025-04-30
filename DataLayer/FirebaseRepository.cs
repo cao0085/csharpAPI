@@ -1,5 +1,5 @@
 using Google.Cloud.Firestore;
-using RestApiPractice.Providers.Firebase;
+using RestApiPractice.Providers;
 
 public abstract class FirebaseRepository
 {

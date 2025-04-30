@@ -1,6 +1,6 @@
 using Google.Cloud.Firestore;
 using Microsoft.AspNetCore.Mvc;
-using RestApiPractice.Providers.Firebase;
+using RestApiPractice.Providers;
 
 namespace RestApiPractice.Controllers
 {

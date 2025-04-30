@@ -1,6 +1,6 @@
 using Google.Cloud.Firestore;
 
-namespace RestApiPractice.Providers.Firebase
+namespace RestApiPractice.Providers
 {
     /// <summary>
     /// FirestoreProvider interface

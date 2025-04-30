@@ -5,7 +5,7 @@ using Microsoft.Extensions.Options;
 using RestApiPractice.Settings;
 
 
-namespace RestApiPractice.Providers.Firebase
+namespace RestApiPractice.Providers
 {
     /// <summary>
     /// FirestoreProvider class

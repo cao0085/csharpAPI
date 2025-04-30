@@ -8,10 +8,10 @@ using Google.Cloud.Firestore;
 using Serilog;
 using Serilog.Events;
 
-var port = Environment.GetEnvironmentVariable("PORT") ?? "80";
+
 var builder = WebApplication.CreateBuilder(args);
 
-// log
+// Log Setting
 Log.Logger = new LoggerConfiguration()
     .MinimumLevel.Debug()
     .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
@@ -35,49 +35,38 @@ Log.Logger = new LoggerConfiguration()
     .CreateLogger();
 builder.Host.UseSerilog();
 
-builder.WebHost.ConfigureKestrel(options =>
+
+// Docker or PORT-bound hosting
+var port = Environment.GetEnvironmentVariable("PORT");
+if (!string.IsNullOrEmpty(port))
 {
-    options.ListenAnyIP(int.Parse(port));
-});
+    builder.WebHost.ConfigureKestrel(options =>
+    {
+        options.ListenAnyIP(int.Parse(port));
+    });
+}
 
-
-
-
-
-
-var configuration = builder.Configuration;
+// start setting main container
+builder.Services.AddControllers();
 builder.Services.AddProjectServices(builder.Configuration);
 
 
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowAll", policy =>
-    {
-        policy.AllowAnyOrigin()
-              .AllowAnyHeader()
-              .AllowAnyMethod();
-    });
-});
-
-
-// 加入 Controller
-builder.Services.AddControllers();
 // 加入 Swagger（方便測 API）
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 
-
+// app build
 var app = builder.Build();
 
-// 開發環境用 Swagger
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-app.UseCors("AllowAll"); 
+app.UseCors(); 
 
 app.UseHttpsRedirection();
 

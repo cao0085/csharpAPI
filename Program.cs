@@ -1,12 +1,17 @@
-using RestApiPractice.DataLayer.Repositories;
-using RestApiPractice.LogicLayer;
-using RestApiPractice.LogicLayer.Interfaces;
+
+using RestApiPractice.Extensions;
+
+using FirebaseAdmin;
+using Google.Apis.Auth.OAuth2;
+using Google.Cloud.Firestore;
 
 using Serilog;
 using Serilog.Events;
+
 var port = Environment.GetEnvironmentVariable("PORT") ?? "80";
 var builder = WebApplication.CreateBuilder(args);
 
+// log
 Log.Logger = new LoggerConfiguration()
     .MinimumLevel.Debug()
     .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
@@ -36,11 +41,23 @@ builder.WebHost.ConfigureKestrel(options =>
 });
 
 
-var configuration = builder.Configuration;
-// 註冊 DI (邏輯層、資料層)
-builder.Services.AddScoped<IProductService, ProductSelectionLogic>();
-builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
+
+
+
+var configuration = builder.Configuration;
+builder.Services.AddProjectServices(builder.Configuration);
+
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
 
 
 // 加入 Controller
@@ -59,6 +76,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors("AllowAll"); 
 
 app.UseHttpsRedirection();
 

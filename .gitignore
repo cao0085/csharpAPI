@@ -13,3 +13,6 @@ obj/
 
 # others (如果還有其他暫存檔)
 *.log
+
+config/
+*.config

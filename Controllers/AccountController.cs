@@ -21,16 +21,39 @@ public class AuthController : ControllerBase
     [HttpPost("google")]
     public async Task<IActionResult> GoogleLogin(GoogleLoginLogic login, AccountLogic logic, [FromBody] GoogleLoginRequest req)
     {   
-        GoogleLoginResponse loginRes = await login.LoginAsync(req);
-        UserInfoDto userInfo = await logic.GetUserInfoAsync(loginRes);
+        // GoogleLoginResponse loginRes = await login.LoginAsync(req);
+        // UserInfoDto userInfo = await logic.GetUserInfoAsync(loginRes);
 
-        string token = _jwtService.GenerateToken(userInfo);
+        // string token = _jwtService.GenerateToken(userInfo);
 
-        return Ok(new {
-            success = true,
-            token = token,
-            data = userInfo
-        });
+        // return Ok(new {
+        //     success = true,
+        //     token = token,
+        //     data = userInfo
+        // });
+        try
+        {
+            if (string.IsNullOrWhiteSpace(req.IdToken))
+            {
+                Console.WriteLine("[Auth] idToken is null or empty");
+                return BadRequest(new { success = false, message = "idToken is missing" });
+            }
 
+            GoogleLoginResponse loginRes = await login.LoginAsync(req);
+            UserInfoDto userInfo = await logic.GetUserInfoAsync(loginRes);
+
+            string token = _jwtService.GenerateToken(userInfo);
+
+            return Ok(new {
+                success = true,
+                token = token,
+                data = userInfo
+            });
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"[Auth] Exception: {ex.Message}\n{ex.StackTrace}");
+            return StatusCode(500, new { success = false, message = "Internal server error" });
+        }
     }
 }

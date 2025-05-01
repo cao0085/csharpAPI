@@ -48,9 +48,16 @@ namespace RestApiPractice.Repositories
                 CreatedAt = Timestamp.FromDateTime(DateTime.UtcNow)
             };
 
-            await userEmailMapRef.SetAsync(new { UID = uid });
-            var userRef = _db.Collection("users").Document(uid);
-            await userRef.SetAsync(basicUserInfo);
+            var batch = _db.StartBatch();
+
+            batch.Set(userEmailMapRef, new { UID = uid });
+            batch.Set(_db.Collection("users").Document(uid), basicUserInfo);
+
+            await batch.CommitAsync();
+
+            // await userEmailMapRef.SetAsync(new { UID = uid });
+            // var userRef = _db.Collection("users").Document(uid);
+            // await userRef.SetAsync(basicUserInfo);
 
             return true;
         }

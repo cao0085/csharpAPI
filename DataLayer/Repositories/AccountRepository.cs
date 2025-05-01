@@ -55,10 +55,6 @@ namespace RestApiPractice.Repositories
 
             await batch.CommitAsync();
 
-            // await userEmailMapRef.SetAsync(new { UID = uid });
-            // var userRef = _db.Collection("users").Document(uid);
-            // await userRef.SetAsync(basicUserInfo);
-
             return true;
         }
 
@@ -76,8 +72,6 @@ namespace RestApiPractice.Repositories
         {
             var userDocRef = _db.Collection("users").Document(userUID);
             var userDoc = await userDocRef.GetSnapshotAsync();
-
-            Console.WriteLine($"userDoc.Exists: {userDoc}");
 
             return userDoc.ConvertTo<UserInfoEntity>();
         }

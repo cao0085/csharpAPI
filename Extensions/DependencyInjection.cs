@@ -5,6 +5,11 @@ using Microsoft.AspNetCore.Cors.Infrastructure;
 using Google.Cloud.Firestore;
 using CorsSettings = RestApiPractice.Settings.CorsOptions;
 
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.IdentityModel.Tokens;
+using RestApiPractice.Extensions;
+using System.Text;
+
 using RestApiPractice.Providers;
 using RestApiPractice.Settings;
 
@@ -26,6 +31,24 @@ namespace RestApiPractice.Extensions
             
             services.Configure<FirebaseConfigOptions>(configuration.GetSection("FirebaseConfig"));
             services.AddScoped<IFirebaseProvider,FirestoreProvider>();
+
+            services.AddScoped<JwtService>();
+            services.AddAuthentication("Bearer")
+                .AddJwtBearer("Bearer", options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = configuration["Jwt:Issuer"],
+                        ValidAudience = configuration["Jwt:Audience"],
+                        IssuerSigningKey = new SymmetricSecurityKey(
+                            Encoding.UTF8.GetBytes(configuration["Jwt:Key"]!))
+                    };
+                });
+            services.AddAuthorization();
 
             services.AddScoped<GoogleLoginLogic>();
             services.AddScoped<AccountLogic>();

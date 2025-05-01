@@ -16,6 +16,8 @@ using RestApiPractice.Settings;
 using RestApiPractice.LogicLayer;
 using RestApiPractice.Repositories;
 
+using RestApiPractice.Settings; 
+
 
 namespace RestApiPractice.Extensions
 {
@@ -24,7 +26,7 @@ namespace RestApiPractice.Extensions
         public static IServiceCollection AddProjectServices(this IServiceCollection services, IConfiguration configuration)
         {   
 
-            services.Configure<CorsSettings>(configuration.GetSection("Cors"));
+            services.Configure<RestApiPractice.Settings.CorsOptions>(configuration.GetSection("Cors"));
             services.AddSingleton<ICorsPolicyProvider, CorsPolicyProvider>();
             services.AddCors();
 

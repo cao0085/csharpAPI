@@ -29,7 +29,7 @@ void TryOverride(string key, string? value)
 }
 
 TryOverride("FirebaseConfig:ProjectId", Environment.GetEnvironmentVariable("FIREBASE_PROJECT_ID"));
-TryOverride("FirebaseConfig:ServiceAccountJson", Environment.GetEnvironmentVariable("FIREBASE_JSON"));
+TryOverride("FirebaseConfig:ServiceAccountKeyPath", Environment.GetEnvironmentVariable("FIREBASE_JSON"));
 TryOverride("Jwt:Key", Environment.GetEnvironmentVariable("JWT_KEY"));
 TryOverride("Jwt:Issuer", Environment.GetEnvironmentVariable("JWT_ISSUER"));
 TryOverride("Jwt:Audience", Environment.GetEnvironmentVariable("JWT_AUDIENCE"));

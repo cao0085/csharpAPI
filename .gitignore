@@ -20,3 +20,5 @@ config/
 .env.production
 
 appsettings.Development.json
+
+githubtoken.json

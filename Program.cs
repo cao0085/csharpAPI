@@ -8,8 +8,32 @@ using Google.Cloud.Firestore;
 using Serilog;
 using Serilog.Events;
 
+using DotNetEnv;
+
 
 var builder = WebApplication.CreateBuilder(args);
+
+
+// local_dev/local_production/production environment setting
+if (builder.Environment.IsProduction() && File.Exists(".env"))
+{
+    DotNetEnv.Env.Load();
+}
+
+void TryOverride(string key, string? value)
+{
+    if (!string.IsNullOrEmpty(value))
+    {
+        builder.Configuration[key] = value;
+    }
+}
+
+TryOverride("FirebaseConfig:ProjectId", Environment.GetEnvironmentVariable("FIREBASE_PROJECT_ID"));
+TryOverride("FirebaseConfig:ServiceAccountJson", Environment.GetEnvironmentVariable("FIREBASE_JSON"));
+TryOverride("Jwt:Key", Environment.GetEnvironmentVariable("JWT_KEY"));
+TryOverride("Jwt:Issuer", Environment.GetEnvironmentVariable("JWT_ISSUER"));
+TryOverride("Jwt:Audience", Environment.GetEnvironmentVariable("JWT_AUDIENCE"));
+
 
 // Log Setting
 Log.Logger = new LoggerConfiguration()

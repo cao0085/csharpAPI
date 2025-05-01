@@ -6,13 +6,16 @@ using RestApiPractice.Settings;
 
 
 namespace RestApiPractice.Providers
-{
-    /// <summary>
-    /// FirestoreProvider class
-    /// </summary>
-    public class FirestoreProvider : IFirestoreProvider
+{   
+
+    public interface IFirebaseProvider
     {
-        private readonly FirestoreDb _firestoreDb;
+        FirestoreDb GetDb();
+    }
+
+    public class FirestoreProvider : IFirebaseProvider
+    {
+        private readonly FirestoreDb _db;
 
         public FirestoreProvider(IOptions<FirebaseConfigOptions> config)
         {   
@@ -26,7 +29,7 @@ namespace RestApiPractice.Providers
             
             GoogleCredential credential = GoogleCredential.FromFile(firebaseOptions.ServiceAccountKeyPath);
 
-            _firestoreDb = new FirestoreDbBuilder
+            _db = new FirestoreDbBuilder
             {
                 ProjectId = firebaseOptions.ProjectId,
                 Credential = credential
@@ -34,11 +37,16 @@ namespace RestApiPractice.Providers
 
         }
 
-        public FirestoreDb GetFirestoreDb()
-        {
-            return _firestoreDb;
-        }
+        public FirestoreDb GetDb() => _db;
     }
 
+    public class FakeFirestoreProvider : IFirebaseProvider
+    {
+        public FirestoreDb GetDb()
+        {
+            // 回傳 null 或模擬的物件
+            throw new NotImplementedException("這是測試用，不實作真實 Firebase");
+        }
+    }
 }
 

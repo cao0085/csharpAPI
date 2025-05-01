@@ -8,6 +8,8 @@ using CorsSettings = RestApiPractice.Settings.CorsOptions;
 using RestApiPractice.Providers;
 using RestApiPractice.Settings;
 
+using RestApiPractice.LogicLayer;
+using RestApiPractice.Repositories;
 
 
 namespace RestApiPractice.Extensions
@@ -23,7 +25,11 @@ namespace RestApiPractice.Extensions
 
             
             services.Configure<FirebaseConfigOptions>(configuration.GetSection("FirebaseConfig"));
-            services.AddScoped<IFirestoreProvider, FirestoreProvider>();
+            services.AddScoped<IFirebaseProvider,FirestoreProvider>();
+
+            services.AddScoped<GoogleLoginLogic>();
+            services.AddScoped<AccountLogic>();
+            services.AddScoped<AccountRepository>();
 
             return services;
         }

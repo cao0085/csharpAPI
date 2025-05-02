@@ -12,27 +12,35 @@ using DotNetEnv;
 
 
 var builder = WebApplication.CreateBuilder(args);
+var env = builder.Environment;
 
 
-// local_dev/local_production/production environment setting
-if (builder.Environment.IsProduction() && File.Exists(".env"))
+if (env.IsDevelopment())
 {
     DotNetEnv.Env.Load();
+}else
+{
+    Console.WriteLine("=== Production Environment ===");
 }
 
-void TryOverride(string key, string? value)
+
+var envToConfigMap = new Dictionary<string, string>
 {
+    { "JWT_KEY", "Jwt:Key" },
+    { "JWT_ISSUER", "Jwt:Issuer" },
+    { "JWT_AUDIENCE", "Jwt:Audience" },
+    { "FIREBASE_PROJECT_ID", "FirebaseConfig:ProjectId" },
+    { "FIREBASE_KEY_PATH", "FirebaseConfig:ServiceAccountKeyPath" },
+};
+
+foreach (var (envVar, configKey) in envToConfigMap)
+{
+    var value = Environment.GetEnvironmentVariable(envVar);
     if (!string.IsNullOrEmpty(value))
     {
-        builder.Configuration[key] = value;
+        builder.Configuration[configKey] = value;
     }
 }
-
-TryOverride("FirebaseConfig:ProjectId", Environment.GetEnvironmentVariable("FIREBASE_PROJECT_ID"));
-TryOverride("FirebaseConfig:ServiceAccountKeyPath", Environment.GetEnvironmentVariable("FIREBASE_JSON"));
-TryOverride("Jwt:Key", Environment.GetEnvironmentVariable("JWT_KEY"));
-TryOverride("Jwt:Issuer", Environment.GetEnvironmentVariable("JWT_ISSUER"));
-TryOverride("Jwt:Audience", Environment.GetEnvironmentVariable("JWT_AUDIENCE"));
 
 
 // Log Setting
@@ -40,6 +48,7 @@ Log.Logger = new LoggerConfiguration()
     .MinimumLevel.Debug()
     .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
     .Enrich.FromLogContext()
+    .WriteTo.Console()
     .WriteTo.File(
         path: "./logs/all-.log",
         outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff} [{Level:u3}] ({SourceContext}) {Message:lj}{NewLine}{Exception}",
@@ -60,16 +69,6 @@ Log.Logger = new LoggerConfiguration()
 builder.Host.UseSerilog();
 
 
-// Docker or PORT-bound hosting
-var port = Environment.GetEnvironmentVariable("PORT");
-if (!string.IsNullOrEmpty(port))
-{
-    builder.WebHost.ConfigureKestrel(options =>
-    {
-        options.ListenAnyIP(int.Parse(port));
-    });
-}
-
 // start setting main container
 builder.Services.AddControllers();
 builder.Services.AddProjectServices(builder.Configuration);
@@ -83,6 +82,16 @@ builder.Services.AddSwaggerGen();
 // app build
 var app = builder.Build();
 
+// === 在 app 建立完、run 前印出變數
+Log.Information("=== Loaded Configuration ===");
+foreach (var (envVar, configKey) in envToConfigMap)
+{
+    var envVal = Environment.GetEnvironmentVariable(envVar) ?? "[null]";
+    var configVal = builder.Configuration[configKey] ?? "[null]";
+    Log.Information($"{envVar}: {envVal}");
+    Log.Information($"{configKey}: {configVal}");
+}
+Log.Information("=== End Configuration ===");
 
 if (app.Environment.IsDevelopment())
 {

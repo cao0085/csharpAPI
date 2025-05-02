@@ -17,8 +17,13 @@ obj/
 config/
 *.config
 
+.env
 .env.production
 
 appsettings.Development.json
 
 githubtoken.json
+
+localdepoly.md
+
+etc

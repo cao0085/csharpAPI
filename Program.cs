@@ -15,9 +15,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 
 // local_dev/local_production/production environment setting
-if (builder.Environment.IsProduction() && File.Exists(".env"))
+if (builder.Environment.IsProduction())
 {
-    DotNetEnv.Env.Load();
+    // DotNetEnv.Env.Load();
+    Console.WriteLine("[ENV] .env file loaded.");
 }
 
 void TryOverride(string key, string? value)
@@ -35,11 +36,14 @@ TryOverride("Jwt:Issuer", Environment.GetEnvironmentVariable("JWT_ISSUER"));
 TryOverride("Jwt:Audience", Environment.GetEnvironmentVariable("JWT_AUDIENCE"));
 
 
+
+
 // Log Setting
 Log.Logger = new LoggerConfiguration()
     .MinimumLevel.Debug()
     .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
     .Enrich.FromLogContext()
+    .WriteTo.Console()
     .WriteTo.File(
         path: "./logs/all-.log",
         outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff} [{Level:u3}] ({SourceContext}) {Message:lj}{NewLine}{Exception}",

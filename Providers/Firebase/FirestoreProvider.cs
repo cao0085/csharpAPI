@@ -3,6 +3,7 @@ using Google.Apis.Auth.OAuth2;
 using Google.Cloud.Firestore;
 using Microsoft.Extensions.Options;
 using RestApiPractice.Settings;
+using System.Text.Json;
 
 
 namespace RestApiPractice.Providers
@@ -22,12 +23,21 @@ namespace RestApiPractice.Providers
             var firebaseOptions = config.Value;
             
 
-            if (string.IsNullOrEmpty(firebaseOptions.ServiceAccountKeyPath) || string.IsNullOrEmpty(firebaseOptions.ProjectId))
+            if (string.IsNullOrEmpty(firebaseOptions.ProjectId) || string.IsNullOrEmpty(firebaseOptions.PrivateKey) || string.IsNullOrEmpty(firebaseOptions.ClientEmail))
             {   
                 throw new InvalidOperationException("Can't get FirebaseConfig , Check appsettings.json");
             };
-            
-            GoogleCredential credential = GoogleCredential.FromFile(firebaseOptions.ServiceAccountKeyPath);
+
+            var credentialJson = JsonSerializer.Serialize(new
+            {
+                type = "service_account",
+                project_id = firebaseOptions.ProjectId,
+                private_key = firebaseOptions.PrivateKey.Replace("\\n", "\n"),
+                client_email = firebaseOptions.ClientEmail,
+                token_uri = "https://oauth2.googleapis.com/token"
+            });
+
+            GoogleCredential credential = GoogleCredential.FromFile(credentialJson);
 
             _db = new FirestoreDbBuilder
             {

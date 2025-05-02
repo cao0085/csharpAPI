@@ -12,27 +12,28 @@ using DotNetEnv;
 
 
 var builder = WebApplication.CreateBuilder(args);
+DotNetEnv.Env.Load();
 
-
-// local_dev/local_production/production environment setting
-if (builder.Environment.IsProduction() && File.Exists(".env"))
+var envToConfigMap = new Dictionary<string, string>
 {
-    DotNetEnv.Env.Load();
-}
+    { "JWT_KEY", "Jwt:Key" },
+    { "JWT_ISSUER", "Jwt:Issuer" },
+    { "JWT_AUDIENCE", "Jwt:Audience" },
+    { "FIREBASE_PROJECT_ID", "FirebaseConfig:ProjectId" },
+    { "FIREBASE_CLIENT_EMAIL", "FirebaseConfig:ClientEmail" },
+    { "FIREBASE_JSON", "FirebaseConfig:ServiceAccountKeyPath" }
+};
 
-void TryOverride(string key, string? value)
+// 遍歷 map，如果環境變數有值就覆蓋 Configuration
+foreach (var (envVar, configKey) in envToConfigMap)
 {
+    var value = Environment.GetEnvironmentVariable(envVar);
     if (!string.IsNullOrEmpty(value))
     {
-        builder.Configuration[key] = value;
+        builder.Configuration[configKey] = value;
     }
 }
 
-TryOverride("FirebaseConfig:ProjectId", Environment.GetEnvironmentVariable("FIREBASE_PROJECT_ID"));
-TryOverride("FirebaseConfig:ServiceAccountKeyPath", Environment.GetEnvironmentVariable("FIREBASE_JSON"));
-TryOverride("Jwt:Key", Environment.GetEnvironmentVariable("JWT_KEY"));
-TryOverride("Jwt:Issuer", Environment.GetEnvironmentVariable("JWT_ISSUER"));
-TryOverride("Jwt:Audience", Environment.GetEnvironmentVariable("JWT_AUDIENCE"));
 
 
 // Log Setting
@@ -74,6 +75,11 @@ if (!string.IsNullOrEmpty(port))
 builder.Services.AddControllers();
 builder.Services.AddProjectServices(builder.Configuration);
 
+
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.ListenLocalhost(5001); // 改用 5001 或其他不衝突的 port
+});
 
 // 加入 Swagger（方便測 API）
 builder.Services.AddEndpointsApiExplorer();

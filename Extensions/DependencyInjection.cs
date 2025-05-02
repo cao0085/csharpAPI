@@ -16,8 +16,6 @@ using RestApiPractice.Settings;
 using RestApiPractice.LogicLayer;
 using RestApiPractice.Repositories;
 
-using RestApiPractice.Settings; 
-
 
 namespace RestApiPractice.Extensions
 {

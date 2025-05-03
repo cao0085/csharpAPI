@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using RestApiPractice.Extensions;
 using RestApiPractice.LogicLayer;
 using RestApiPractice.DataLayer.Models;
+
 using RestApiPractice.DataLayer.Models.GoogleModel;
 
 
@@ -56,4 +57,19 @@ public class AuthController : ControllerBase
             return StatusCode(500, new { success = false, message = "Internal server error" });
         }
     }
+
+    [HttpPost("spotify")]
+    public async Task<IActionResult> SpotifyLogin(SpotifyLoginLogic login,AccountLogic logic, [FromBody] SpotifyLoginRequest req)
+    {
+        if (string.IsNullOrEmpty(req.Code))
+            return BadRequest("Missing code");
+
+        SpotifyTokenResponse tokenRes = await login.LoginAsync(req.Code);
+        await logic.SetSpotifyToken(tokenRes);
+
+
+        return Ok(tokenRes);
+        
+    }
+
 }

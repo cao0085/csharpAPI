@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 
 
 [Route("api/[controller]")]
+[Authorize]
 public class TestController : ControllerBase
 {   
     [HttpGet("test")]

@@ -16,8 +16,6 @@ using RestApiPractice.Settings;
 using RestApiPractice.LogicLayer;
 using RestApiPractice.Repositories;
 
-using RestApiPractice.Settings; 
-
 
 namespace RestApiPractice.Extensions
 {
@@ -33,6 +31,7 @@ namespace RestApiPractice.Extensions
             
             services.Configure<FirebaseConfigOptions>(configuration.GetSection("FirebaseConfig"));
             services.AddScoped<IFirebaseProvider,FirestoreProvider>();
+
 
             services.AddScoped<JwtService>();
             services.AddAuthentication("Bearer")
@@ -53,6 +52,7 @@ namespace RestApiPractice.Extensions
             services.AddAuthorization();
 
             services.AddScoped<GoogleLoginLogic>();
+            services.AddScoped<SpotifyLoginLogic>();
             services.AddScoped<AccountLogic>();
             services.AddScoped<AccountRepository>();
 

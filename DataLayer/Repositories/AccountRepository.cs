@@ -76,6 +76,14 @@ namespace RestApiPractice.Repositories
             return userDoc.ConvertTo<UserInfoEntity>();
         }
 
+        public async Task<bool> SetSpotifyToken(Dictionary<string, object?> token)
+        {
+            
+            var userDocRef = _db.Collection("spotifyToken").Document();
+            await userDocRef.SetAsync(token);
+
+            return true;
+        }
 
     }
 }

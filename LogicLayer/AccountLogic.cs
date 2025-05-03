@@ -42,6 +42,20 @@ namespace RestApiPractice.LogicLayer
             };
         }
 
-
+        public async Task<bool> SetSpotifyToken(SpotifyTokenResponse tokenRes)
+        {
+            // Create DataFormat
+            var token = new Dictionary<string, object?>
+            {
+                { "access_token", tokenRes.access_token },
+                { "refresh_token", tokenRes.refresh_token },
+                { "expires_in", tokenRes.expires_in },
+                { "scope", tokenRes.scope },
+                { "token_type", tokenRes.token_type },
+                { "created_at", Timestamp.GetCurrentTimestamp() }
+            };
+        
+            return await _repo.SetSpotifyToken(token);
+        }
     }
 }

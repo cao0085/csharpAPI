@@ -71,15 +71,19 @@ namespace RestApiPractice.Repositories
         public async Task<UserInfoEntity> GetUserInfoAsync(string userUID)
         {
             var userDocRef = _db.Collection("users").Document(userUID);
+            await userDocRef.UpdateAsync(new Dictionary<string, object>
+            {
+                { "LastLoginAt", Timestamp.FromDateTime(DateTime.UtcNow) }
+            });
             var userDoc = await userDocRef.GetSnapshotAsync();
 
             return userDoc.ConvertTo<UserInfoEntity>();
         }
 
-        public async Task<bool> SetSpotifyToken(Dictionary<string, object?> token)
+        public async Task<bool> SetSpotifyToken(string uid ,Dictionary<string, object?> token)
         {
             
-            var userDocRef = _db.Collection("spotifyToken").Document();
+            var userDocRef = _db.Collection("spotifyToken").Document(uid);
             await userDocRef.SetAsync(token);
 
             return true;

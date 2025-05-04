@@ -3,18 +3,19 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Cors.Infrastructure;
 
 using Google.Cloud.Firestore;
-using CorsSettings = RestApiPractice.Settings.CorsOptions;
 
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.IdentityModel.Tokens;
-using RestApiPractice.Extensions;
-using System.Text;
+using System.Security.Claims;
+
+
 
 using RestApiPractice.Providers;
-using RestApiPractice.Settings;
-
 using RestApiPractice.LogicLayer;
 using RestApiPractice.Repositories;
+using RestApiPractice.Extensions;
+
+using System.Text;
 
 
 namespace RestApiPractice.Extensions
@@ -24,14 +25,17 @@ namespace RestApiPractice.Extensions
         public static IServiceCollection AddProjectServices(this IServiceCollection services, IConfiguration configuration)
         {   
 
-            services.Configure<RestApiPractice.Settings.CorsOptions>(configuration.GetSection("Cors"));
+            services.Configure<CorsConfigOptions>(configuration.GetSection("Cors"));
             services.AddSingleton<ICorsPolicyProvider, CorsPolicyProvider>();
             services.AddCors();
+
+
+
+            services.Configure<SpotifyConfigOptions>(configuration.GetSection("SpotifyConfig"));
 
             
             services.Configure<FirebaseConfigOptions>(configuration.GetSection("FirebaseConfig"));
             services.AddScoped<IFirebaseProvider,FirestoreProvider>();
-
 
             services.AddScoped<JwtService>();
             services.AddAuthentication("Bearer")
@@ -49,10 +53,18 @@ namespace RestApiPractice.Extensions
                             Encoding.UTF8.GetBytes(configuration["Jwt:Key"]!))
                     };
                 });
+
             services.AddAuthorization();
+            services.AddHttpContextAccessor();
+            services.AddScoped<IUserContextService, UserContextService>();
+
+            services.AddHttpClient<SpotifyApiLogic>();
+            services.AddScoped<SpotifyRepository>();
+
+            
 
             services.AddScoped<GoogleLoginLogic>();
-            services.AddScoped<SpotifyLoginLogic>();
+            services.AddHttpClient<SpotifyLoginLogic>();
             services.AddScoped<AccountLogic>();
             services.AddScoped<AccountRepository>();
 

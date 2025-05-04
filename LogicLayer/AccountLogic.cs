@@ -42,7 +42,7 @@ namespace RestApiPractice.LogicLayer
             };
         }
 
-        public async Task<bool> SetSpotifyToken(SpotifyTokenResponse tokenRes)
+        public async Task<bool> SetSpotifyToken(string uid ,SpotifyTokenResponse tokenRes)
         {
             // Create DataFormat
             var token = new Dictionary<string, object?>
@@ -55,7 +55,7 @@ namespace RestApiPractice.LogicLayer
                 { "created_at", Timestamp.GetCurrentTimestamp() }
             };
         
-            return await _repo.SetSpotifyToken(token);
+            return await _repo.SetSpotifyToken(uid , token);
         }
     }
 }

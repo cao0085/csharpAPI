@@ -1,9 +1,14 @@
-using Google.Apis.Auth;
+
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+
+using Google.Apis.Auth;
+
 using RestApiPractice.Extensions;
 using RestApiPractice.LogicLayer;
 using RestApiPractice.DataLayer.Models;
-
 using RestApiPractice.DataLayer.Models.GoogleModel;
 
 
@@ -20,7 +25,7 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("google")]
-    public async Task<IActionResult> GoogleLogin(GoogleLoginLogic login, AccountLogic logic, [FromBody] GoogleLoginRequest req)
+    public async Task<IActionResult> AccountLogin(GoogleLoginLogic login, AccountLogic logic, [FromBody] GoogleLoginRequest req)
     {   
         // GoogleLoginResponse loginRes = await login.LoginAsync(req);
         // UserInfoDto userInfo = await logic.GetUserInfoAsync(loginRes);
@@ -58,14 +63,20 @@ public class AuthController : ControllerBase
         }
     }
 
+    [Authorize]
     [HttpPost("spotify")]
     public async Task<IActionResult> SpotifyLogin(SpotifyLoginLogic login,AccountLogic logic, [FromBody] SpotifyLoginRequest req)
     {
         if (string.IsNullOrEmpty(req.Code))
             return BadRequest("Missing code");
 
+        string? uid = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        Console.WriteLine($"[Auth] uid: {uid}");
+        if (string.IsNullOrEmpty(uid))
+            return Unauthorized("Missing UID in token");
+
         SpotifyTokenResponse tokenRes = await login.LoginAsync(req.Code);
-        await logic.SetSpotifyToken(tokenRes);
+        await logic.SetSpotifyToken(uid,tokenRes);
 
 
         return Ok(tokenRes);

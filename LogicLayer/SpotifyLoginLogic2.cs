@@ -1,38 +1,31 @@
-using Microsoft.Extensions.Configuration;
-using System.Threading.Tasks;
-using RestApiPractice.DataLayer.Models;
-using Google.Apis.Auth;
+using Microsoft.Extensions.Options;
 using System.Net.Http;
 using System.Text.Json;
+using RestApiPractice.DataLayer.Models;
+using RestApiPractice.Providers;
 
 namespace RestApiPractice.LogicLayer
 {
     public class SpotifyLoginLogic
     {
-        private readonly IConfiguration _configuration;
+        private readonly SpotifyConfigOptions _config;
         private readonly HttpClient _httpClient;
 
-        public SpotifyLoginLogic(IConfiguration configuration)
+        public SpotifyLoginLogic(IOptions<SpotifyConfigOptions> config, HttpClient httpClient)
         {
-            _configuration = configuration;
-            _httpClient = new HttpClient();
+            _config = config.Value;
+            _httpClient = httpClient;
         }
 
         public async Task<SpotifyTokenResponse> LoginAsync(string code)
         {
-            var clientId = _configuration["SpotifyConfig:ClientId"];
-            var clientSecret = _configuration["SpotifyConfig:ClientSecret"];
-            var redirectUri = _configuration["SpotifyConfig:RedirectUri"];
-            // Console.WriteLine($"[SpotifyLoginLogic] ClientId: {clientId}");
-            // Console.WriteLine($"[SpotifyLoginLogic] ClientId: {clientSecret}");
-            // Console.WriteLine($"[SpotifyLoginLogic] ClientId: {redirectUri}");
             var formData = new Dictionary<string, string>
             {
                 { "grant_type", "authorization_code" },
                 { "code", code },
-                { "redirect_uri", redirectUri! },
-                { "client_id", clientId! },
-                { "client_secret", clientSecret! }
+                { "redirect_uri", _config.RedirectUri },
+                { "client_id", _config.ClientId },
+                { "client_secret", _config.ClientSecret }
             };
 
             var request = new HttpRequestMessage(HttpMethod.Post, "https://accounts.spotify.com/api/token")
@@ -56,5 +49,4 @@ namespace RestApiPractice.LogicLayer
             return token!;
         }
     }
-
 }

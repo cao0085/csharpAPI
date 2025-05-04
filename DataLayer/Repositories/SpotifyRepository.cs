@@ -5,6 +5,8 @@ using Google.Cloud.Firestore;
 using RestApiPractice.DataLayer.Models;
 using RestApiPractice.DataLayer.Models.GoogleModel;
 
+using RestApiPractice.Extensions;
+
 
 
 namespace RestApiPractice.Repositories
@@ -18,36 +20,16 @@ namespace RestApiPractice.Repositories
             _db = provider.GetDb();
         }
 
-        // public async Task<SpotifyTokenResponse> LoginAsync(string uid, string code)
-        // {
-        //     // 1. 讀取設定
-        //     var clientId = _configuration["Spotify:ClientId"];
-        //     var clientSecret = _configuration["Spotify:ClientSecret"];
-        //     var redirectUri = _configuration["Spotify:RedirectUri"];
+        public async Task<string?> GetAccessTokenAsync(string uid)
+        {
+            var doc = await _db.Collection("spotifyToken").Document(uid).GetSnapshotAsync();
+            if (doc.Exists && doc.TryGetValue("access_token", out string token))
+            {
+                return token;
+            }
 
-        //     // 2. 用 code 換 token
-        //     var httpClient = new HttpClient();
-        //     var request = new HttpRequestMessage(HttpMethod.Post, "https://accounts.spotify.com/api/token");
-        //     request.Content = new FormUrlEncodedContent(new Dictionary<string, string>
-        //     {
-        //         {"grant_type", "authorization_code"},
-        //         {"code", code},
-        //         {"redirect_uri", redirectUri!},
-        //         {"client_id", clientId!},
-        //         {"client_secret", clientSecret!}
-        //     });
-
-        //     var response = await httpClient.SendAsync(request);
-        //     response.EnsureSuccessStatusCode();
-
-        //     var json = await response.Content.ReadAsStringAsync();
-        //     var token = JsonSerializer.Deserialize<SpotifyTokenResponse>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-
-        //     // 3. 儲存到 Firebase（可再抽出去）
-        //     await SaveTokenToFirebaseAsync(uid, token);
-
-        //     return token!;
-        // }
+            return null;
+        }
 
     }
 }

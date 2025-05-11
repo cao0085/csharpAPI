@@ -2,7 +2,6 @@ using FirebaseAdmin;
 using Google.Apis.Auth.OAuth2;
 using Google.Cloud.Firestore;
 using Microsoft.Extensions.Options;
-using RestApiPractice.Settings;
 
 
 namespace RestApiPractice.Providers

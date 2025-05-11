@@ -4,7 +4,8 @@ using RestApiPractice.DataLayer.Models.GoogleModel;
 using Google.Apis.Auth;
 
 namespace RestApiPractice.LogicLayer
-{
+{   
+    /// GOOGLE
     public class GoogleLoginLogic
     {
         private readonly IConfiguration _configuration;

@@ -31,6 +31,7 @@ var envToConfigMap = new Dictionary<string, string>
     { "JWT_AUDIENCE", "Jwt:Audience" },
     { "FIREBASE_PROJECT_ID", "FirebaseConfig:ProjectId" },
     { "FIREBASE_KEY_PATH", "FirebaseConfig:ServiceAccountKeyPath" },
+    { "SPOTIFY_KEY", "SpotifyConfig:ClientSecret" }
 };
 
 foreach (var (envVar, configKey) in envToConfigMap)

@@ -1,4 +1,4 @@
-namespace RestApiPractice.Settings
+namespace RestApiPractice.Providers
 {
     public class FirebaseConfigOptions
     {

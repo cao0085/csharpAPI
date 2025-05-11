@@ -1,39 +1,39 @@
 using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
-using CorsSettings = RestApiPractice.Settings.CorsOptions;
 
 namespace RestApiPractice.Providers
-{
+{   
+    // ICorsPolicyProvider by Microsoft.AspNetCore.Cors.Infrastructure
     public class CorsPolicyProvider : ICorsPolicyProvider
     {
-        private readonly CorsSettings _options;
+        private readonly CorsConfigOptions _config;
 
-        public CorsPolicyProvider(IOptions<CorsSettings> options)
+        public CorsPolicyProvider(IOptions<CorsConfigOptions> config)
         {
-            _options = options.Value;
+            _config = config.Value;
         }
 
         public Task<CorsPolicy?> GetPolicyAsync(HttpContext context, string? policyName)
         {
             var builder = new CorsPolicyBuilder();
 
-            if (_options.AllowOrigins.Contains("*"))
+            if (_config.AllowOrigins.Contains("*"))
                 builder.AllowAnyOrigin();
             else
-                builder.WithOrigins(_options.AllowOrigins);
+                builder.WithOrigins(_config.AllowOrigins);
 
-            if (_options.AllowHeaders.Contains("*"))
+            if (_config.AllowHeaders.Contains("*"))
                 builder.AllowAnyHeader();
             else
-                builder.WithHeaders(_options.AllowHeaders);
+                builder.WithHeaders(_config.AllowHeaders);
 
-            if (_options.AllowMethods.Contains("*"))
+            if (_config.AllowMethods.Contains("*"))
                 builder.AllowAnyMethod();
             else
-                builder.WithMethods(_options.AllowMethods);
+                builder.WithMethods(_config.AllowMethods);
 
-            if (_options.AllowCredentials)
+            if (_config.AllowCredentials)
                 builder.AllowCredentials();
 
             var policy = builder.Build();

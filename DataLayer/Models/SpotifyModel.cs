@@ -23,6 +23,18 @@ namespace RestApiPractice.DataLayer.Models
         public string? token_type { get; set; }
     }
 
+    public class TransferPlaybackRequest
+    {
+        public string DeviceId { get; set; } = string.Empty;
+        public bool? Play { get; set; } = false; 
+    }
+
+    public class LoadTrackRequest
+    {
+        public string DeviceId { get; set; } = string.Empty;
+        public string TrackUri { get; set; } = string.Empty;
+    }
+
 }
 
 

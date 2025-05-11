@@ -31,5 +31,19 @@ namespace RestApiPractice.Repositories
             return null;
         }
 
+        public async Task<bool> ClearSpotifyTokensAsync(string uid)
+        {
+            var docRef = _db.Collection("spotifyToken").Document(uid);
+            var snapshot = await docRef.GetSnapshotAsync();
+
+            if (snapshot.Exists)
+            {
+                await docRef.DeleteAsync();
+                return true;
+            }
+
+            return false;
+        }
+
     }
 }

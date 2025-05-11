@@ -27,16 +27,6 @@ public class AuthController : ControllerBase
     [HttpPost("google")]
     public async Task<IActionResult> AccountLogin(GoogleLoginLogic login, AccountLogic logic, [FromBody] GoogleLoginRequest req)
     {   
-        // GoogleLoginResponse loginRes = await login.LoginAsync(req);
-        // UserInfoDto userInfo = await logic.GetUserInfoAsync(loginRes);
-
-        // string token = _jwtService.GenerateToken(userInfo);
-
-        // return Ok(new {
-        //     success = true,
-        //     token = token,
-        //     data = userInfo
-        // });
         try
         {
             if (string.IsNullOrWhiteSpace(req.IdToken))
